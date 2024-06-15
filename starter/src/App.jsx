@@ -1,15 +1,17 @@
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import React from "react";
-import Main from "./Main";
-import {Search} from "./Search";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Main from './Main';
+import Search from './Search';
+import { BooksProvider } from './BooksContext';
 
 export default function App() {
     return (
-    <BrowserRouter>
-        <Routes>
-            <Route path={"/"} element={<Main />} />
-            <Route path={"/search"} exact element={<Search/>} />
-        </Routes>
-    </BrowserRouter>
-    )
+        <BrowserRouter>
+            <BooksProvider>
+                <Routes>
+                    <Route path="/" element={<Main />} />
+                    <Route path="/search" element={<Search />} />
+                </Routes>
+            </BooksProvider>
+        </BrowserRouter>
+    );
 }
