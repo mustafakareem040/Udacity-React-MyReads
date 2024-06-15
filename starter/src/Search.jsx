@@ -14,23 +14,20 @@ export const Search = () => {
                 setLoading(true);
                 const filter = await getAll()
                 let results = await search(query)
-                results = results.map(value => {
-                    const t = filter.find(it => it.id === value.id)
-                    if (t != null)
-                        return t
-                    value.shelf = 'none'
-                    return value;
-                })
-                if (Array.isArray(results)) {
+                if (!Array.isArray(results)) setBooks([]);
+                else {
+                    results = results.map(value => {
+                        const t = filter.find(it => it.id === value.id)
+                        if (t != null)
+                            return t
+                        value.shelf = 'none'
+                        return value;
+                    })
                     setBooks(results);
-                } else {
-                    setBooks([]);
                 }
                 setLoading(false);
-            } else {
-                setBooks([]);
             }
-        }, 500)
+        }, 200)
         return () => {clearTimeout(timeOut)}
     }, [query])
 
